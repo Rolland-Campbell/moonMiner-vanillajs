@@ -1,79 +1,88 @@
 let store = {
-  playerInventory: [],
   playerBank: 0,
-  default: 1,
-  clickUpgrades: [
-    {
-      type: "Pick Axe",
+  upgrades: {
+    pickAxe: {
       price: 5,
       harvestAmount: 2,
-      auto: false
+      quantity: 0,
+      multiplier: 2
     },
-    {
-      type: "Mining Laser",
-      price: 10,
-      harvestAmount: 10,
-      auto: false
+    miningLaser: {
+      price: 50,
+      harvestAmount: 5,
+      quantity: 0,
+      multiplier: 2
     },
-    {
-      type: "Photon Digger",
+    photonDigger: {
       price: 100,
-      harvestAmount: 50,
-      auto: false
-    }
-  ],
-  autoUpgrades: [
-    {
-      type: "Rover",
+      harvestAmount: 10,
+      quantity: 0,
+      multiplier: 2
+    },
+    rover: {
       price: 500,
-      harvestAmount: 50,
-      auto: true
+      harvestAmount: 10,
+      quantity: 0,
+      multiplier: 2
     },
-    {
-      type: "Cyborg Miner",
+    cyborgMiner: {
       price: 1000,
-      harvestAmount: 100,
-      auto: true
+      harvestAmount: 30,
+      quantity: 0,
+      multiplier: 2
     },
-    {
-      type: "Alien Workforce",
+    alienWorkforce: {
       price: 2000,
-      harvestAmount: 500
+      harvestAmount: 50,
+      quantity: 0,
+      multiplier: 2
     }
-  ]
+  }
 }
-
-let incrementor = store.playerInventory.filter(i => i.auto == false).map(i => i.harvestAmount).reduce((a, b) => a + b);
-
-let collectAutoUpgrades = store.playerInventory.filter(t => t.auto == true).map(t => t.harvestAmount).reduce((a, b) => a + b)
 
 function autoMine() {
   setInterval(addAutoUpgrade, 3000)
 }
 
 function addAutoUpgrade() {
-  store.playerBank += collectAutoUpgrades
-  drawBank()
+  let rover = store.upgrades.rover.quantity * store.upgrades.rover.harvestAmount
+  let cyborg = store.upgrades.cyborgMiner.quantity * store.upgrades.cyborgMiner.harvestAmount
+  let alien = store.upgrades.alienWorkforce.quantity * store.upgrades.alienWorkforce.harvestAmount
+  store.playerBank += rover + cyborg + alien
+  Update()
 }
 
 function mine() {
-  store.playerBank += store.default + incrementor
-  console.log("incrementor", incrementor);
-  console.log("auto upgrades", collectAutoUpgrades);
-
-  console.log("bank", store.playerBank);
-  console.log("default", store.default);
-  drawBank()
-}
-
-function drawBank() {
-  document.getElementById("bank").innerText = store.playerBank.toString()
+  let hand = 1
+  let axe = store.upgrades.pickAxe.quantity * store.upgrades.pickAxe.harvestAmount
+  let laser = store.upgrades.miningLaser.quantity * store.upgrades.pickAxe.harvestAmount
+  let digger = store.upgrades.photonDigger.quantity * store.upgrades.photonDigger.harvestAmount
+  store.playerBank += hand + axe + laser + digger
+  Update()
 }
 
 function Purchase(item) {
-  let choice = store.clickUpgrades.find(i => i.type == item)
-  store.playerBank -= choice.price
-  store.playerInventory.push(choice)
-  console.log("choice from function", choice);
-  console.log("player inv", store.playerInventory);
+  if (store.playerBank >= store.upgrades[item].price) {
+    store.upgrades[item].quantity++
+    store.playerBank -= store.upgrades[item].price
+    store.upgrades[item].price *= store.upgrades[item].multiplier
+    console.log("quantity", store.upgrades);
+    Update()
+  } else alert("You need more cheese!!")
+}
+
+function Update() {
+  document.getElementById('bank').innerText = store.playerBank.toString()
+  document.getElementById('axeInv').innerText = store.upgrades.pickAxe.quantity.toString()
+  document.getElementById('laserInv').innerText = store.upgrades.miningLaser.quantity.toString()
+  document.getElementById('diggerInv').innerText = store.upgrades.photonDigger.quantity.toString()
+  document.getElementById('roverInv').innerText = store.upgrades.rover.quantity.toString()
+  document.getElementById('cyborgInv').innerText = store.upgrades.cyborgMiner.quantity.toString()
+  document.getElementById('alienInv').innerText = store.upgrades.alienWorkforce.quantity.toString()
+  document.getElementById('pickAxe').innerText = store.upgrades.pickAxe.price.toString()
+  document.getElementById('miningLaser').innerText = store.upgrades.miningLaser.price.toString()
+  document.getElementById('photonDigger').innerText = store.upgrades.photonDigger.price.toString()
+  document.getElementById('rover').innerText = store.upgrades.rover.price.toString()
+  document.getElementById('cyborgMiner').innerText = store.upgrades.cyborgMiner.price.toString()
+  document.getElementById('alienWorkforce').innerText = store.upgrades.alienWorkforce.price.toString()
 }

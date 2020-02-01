@@ -10,58 +10,61 @@
   <title>Moon Miner</title>
 </head>
 
-<body class="container-fluid" onload="autoMine()">
+<body class="container-fluid" onload="autoMine(), Update()">
   <header class="row headerStyle">
     <h1 class="headerText">Moon Miner</h1>
   </header>
 
   <main class="row">
     <div class="col-12 order-2 col-md-3 order-md-1 colLeft">
-      <div class="row">
-        <p class="bankFont">Cheese = <span id="bank" class="bankFont">0</span></p>
-      </div>
+      <dl class="bankFont">Cheese = <span id="bank" class="bankFont">0</span></dl>
+      <li class="invFont">Pick Axe: <span id="axeInv"></span></li>
+      <li class="invFont">Mining Laser: <span id="laserInv"></span></li>
+      <li class="invFont">Photon Digger: <span id="diggerInv"></span></li>
+      <li class="invFont">Rover: <span id="roverInv"></span></li>
+      <li class="invFont">Cyborg Miner: <span id="cyborgInv"></span></li>
+      <li class="invFont">Alien Workforce: <span id="alienInv"></span></li>
     </div>
-    <button class="btn btnStyle order-1 order-md-2" onclick="mine()">MINE ME</button>
+    <div class="btnStyle col-8 offset-2 order-1 col-md-3 offset-md-0 order-md-2" onclick="mine()">MINE ME</div>
   </main>
 
   <footer class="row footerStyle">
     <div class="col-12 footerTitle">
-      <h5>Store - Hand Tools:</h5>
-      <p class="smallFont">Upgrades your click amount</p>
+      <h4 class="storeText">Store - Hand Tools: <span class="storeText2">(Upgrades your click amount)</span></h4>
     </div>
-    <div class="col-6 col-md-3 itemsStyle">
-      <p>Item Name: <span id="item1">Item</span></p>
-      <p>Price: <span id="item1Price">0</span></p>
-      <button class="btn btn-warning" onclick="Purchase('Pick Axe')">Purchase</button>
+    <div class="col-12 col-md-3 itemsStyle">
+      <p>Pick Axe</p>
+      <p>Price: <span id="pickAxe"></span></p>
+      <button class="btn btn-warning" id="storeButton" onclick="Purchase('pickAxe')">Purchase</button>
     </div>
-    <div class="col-6 col-md-3 itemsStyle">
-      <p>Item Name: <span id="item2">Item</span></p>
-      <p>Price: <span id="item2Price">0</span></p>
-      <button class="btn btn-warning">Purchase</button>
+    <div class="col-12 col-md-3 itemsStyle">
+      <p>Mining Laser</p>
+      <p>Price: <span id="miningLaser"></span></p>
+      <button class="btn btn-warning" id="storeButton" onclick="Purchase('miningLaser')">Purchase</button>
     </div>
-    <div class="col-6 col-md-3 itemsStyle">
-      <p>Item Name: <span id="item3">Item</span></p>
-      <p>Price: <span id="item3Price">0</span></p>
-      <button class="btn btn-warning">Purchase</button>
+    <div class="col-12 col-md-3 itemsStyle">
+      <p>Photon Digger</p>
+      <p>Price: <span id="photonDigger"></span></p>
+      <button class="btn btn-warning" id="storeButton" onclick="Purchase('photonDigger')">Purchase</button>
     </div>
     <div class="col-12 footerTitle">
-      <h5>Store - Automated Tools:</h5>
-      <p class="smallFont">Automatically mines every 3 seconds</p>
+      <h4 class="storeText">Store - Automated Tools: <span class="storeText2">(Upgrades amount every 3 seconds)</span>
+      </h4>
     </div>
-    <div class="col-6 col-md-3 itemsStyle">
-      <p>Item Name: <span id="item4">Item</span></p>
-      <p>Price: <span id="item4Price">0</span></p>
-      <button class="btn btn-warning">Purchase</button>
+    <div class="col-12 col-md-3 itemsStyle">
+      <p>Rover</p>
+      <p>Price: <span id="rover"></span></p>
+      <button class="btn btn-warning" id="storeButton" onclick="Purchase('rover')">Purchase</button>
     </div>
-    <div class="col-6 col-md-3 itemsStyle">
-      <p>Item Name: <span id="item5">Item</span></p>
-      <p>Price: <span id="item5Price">0</span></p>
-      <button class="btn btn-warning">Purchase</button>
+    <div class="col-12 col-md-3 itemsStyle">
+      <p>Cyborg Miner</p>
+      <p>Price: <span id="cyborgMiner"></span></p>
+      <button class="btn btn-warning" id="storeButton" onclick="Purchase('cyborgMiner')">Purchase</button>
     </div>
-    <div class="col-6 col-md-3 itemsStyle">
-      <p>Item Name: <span id="item6">Item</span></p>
-      <p>Price: <span id="item6Price">0</span></p>
-      <button class="btn btn-warning">Purchase</button>
+    <div class="col-12 col-md-3 itemsStyle">
+      <p>Alien Workforce</p>
+      <p>Price: <span id="alienWorkforce"></span></p>
+      <button class="btn btn-warning" id="storeButton" onclick="Purchase('alienWorkforce')">Purchase</button>
     </div>
   </footer>
 
